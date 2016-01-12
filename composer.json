@@ -1,0 +1,25 @@
+{
+	"name": "ballstatecber/cber-data-grabber",
+	"description": "CBER Data Grabber",
+	"keywords": ["php", "api"],
+	"homepage": "https://github.com/BallStateCBER/cber-data-grabber",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Brandon Patterson",
+			"role": "Author"
+		},
+		{
+			"name": "Graham Watson",
+			"role": "Author"
+		}
+	],
+	"require": {
+        "php": ">=5.4"
+    },
+	"autoload": {
+		"psr-4": {
+			"CBERDataGrabber\\": "src"
+		}
+	}
+}

@@ -1,4 +1,6 @@
 <?php
+namespace CBERDataGrabber;
+
 /**
  * A utility that provides a set of default functions for interacting with a Map of ACS table codes.
  *

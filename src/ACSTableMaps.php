@@ -1,4 +1,6 @@
 <?php
+namespace CBERDataGrabber;
+
 include 'ACSGenericTableMap.php';
 
 /**

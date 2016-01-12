@@ -1,4 +1,6 @@
 <?php
+namespace CBERDataGrabber;
+
 /**
  * A utility for querying the American Comunity Survey API
  *

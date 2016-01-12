@@ -1,4 +1,5 @@
 <?php
+namespace CBERDataGrabber;
 
 //Mostly unfinished class, intended to make extension of these utilities beyond Indiana easy, if we ever pursue additional states
 //Currently supports only Indiana FIPS codes

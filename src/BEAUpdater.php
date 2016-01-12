@@ -1,6 +1,9 @@
 <?php
+namespace CBERDataGrabber;
+
 include 'BEADataGrabber.php';
 include 'BEATableMaps.php';
+
 /**
  * A class that controls the collection of data from the BEA
  * for the purpose of keeping CBER's County Profile Pages up to date.

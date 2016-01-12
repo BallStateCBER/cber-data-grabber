@@ -1,4 +1,6 @@
 <?php
+namespace CBERDataGrabber;
+
 include 'BEAGenericTableMap.php';
 
 class BEAWageMap extends BEAGenericTableMap{

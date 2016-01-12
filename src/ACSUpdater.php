@@ -1,4 +1,6 @@
 <?php
+namespace CBERDataGrabber;
+
 include 'ACSDataGrabber.php';
 include 'ACSTableMaps.php';
 

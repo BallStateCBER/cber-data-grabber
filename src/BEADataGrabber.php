@@ -1,5 +1,8 @@
 <?php
+namespace CBERDataGrabber;
+
 include 'FipsCodeGenerator.php';
+
 /**
  * A utility for querying the BEA API
  *

@@ -1,16 +1,17 @@
 <?php
 namespace CBERDataGrabber;
 
-//Mostly unfinished class, intended to make extension of these utilities beyond Indiana easy, if we ever pursue additional states
-//Currently supports only Indiana FIPS codes
-//Will return only the FIPS code for the full state (ex ['19000']) if an unsupported state is queries)
-
+/**
+ * Mostly unfinished class, intended to make extension of these utilities beyond Indiana easy, if we ever pursue additional states
+ * Currently supports only Indiana FIPS codes
+ * Will return only the FIPS code for the full state (ex ['19000']) if an unsupported state is queries)
+ */
 class FipsCodeGenerator{
 
-	//Can be used only for states with a perfect county sequence (all odd suffixes from '001' to the listed high value)
-	private static $highestFipsByStateCode = array(
-			//stateId => highest FIPS suffix;
-			'18' => 183);//fill out as needed
+	/**
+     * Can be used only for states with a perfect county sequence (all odd suffixes from '001' to the listed high value)
+     */
+	private static $highestFipsByStateCode = array('18' => 183); // stateId => highest FIPS suffix; fill out as needed
 
 
 	/**

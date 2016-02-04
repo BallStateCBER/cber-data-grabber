@@ -65,15 +65,17 @@ class ACSUpdater{
 	 * @param string $stateID
 	 * @param string $categoryName
 	 * @return array $processedDataArray
+     * @throws Exception
 	 */
-	public static function updateCountyData($year, $stateID, $categoryName){
-		if(static::hasAPIKey()){
+	public static function getCountyData($year, $stateID, $categoryName){
+		if (static::hasAPIKey()) {
 		    $map = static::getMap($categoryName);
 			$fields = $map::getAllCodes();
 			$rawData = static::$grabber -> grabACSData($year, $stateID, $fields);
 			$processedDataArray = static::combineCategories($rawData, $map);
 			return $processedDataArray;
 		}
+        throw new Exception('API key not set', 500);
 	}
 
     /**

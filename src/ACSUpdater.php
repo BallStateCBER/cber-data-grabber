@@ -49,41 +49,29 @@ class ACSUpdater{
 	 * @param string $stateID
 	 */
 	public static function updateAllCountyData($year, $stateID){
-		$ignore = static::updateCountyData($year, $stateID, static::$POPULATION_AGE, TRUE);
-		$ignore = static::updateCountyData($year, $stateID, static::$HOUSEHOLD_INCOME, TRUE);
-		$ignore = static::updateCountyData($year, $stateID, static::$ETHNIC_MAKEUP, TRUE);
-		$ignore = static::updateCountyData($year, $stateID, static::$EDUCATIONAL_ATTAINMENT, TRUE);
-		$ignore = static::updateCountyData($year, $stateID, static::$INEQUALITY_INDEX, TRUE);
+		$ignore = static::updateCountyData($year, $stateID, static::$POPULATION_AGE);
+		$ignore = static::updateCountyData($year, $stateID, static::$HOUSEHOLD_INCOME);
+		$ignore = static::updateCountyData($year, $stateID, static::$ETHNIC_MAKEUP);
+		$ignore = static::updateCountyData($year, $stateID, static::$EDUCATIONAL_ATTAINMENT);
+		$ignore = static::updateCountyData($year, $stateID, static::$INEQUALITY_INDEX);
 	}
 
 
 	/**
 	 * Updates county data from the ACS,
 	 * for a given year, stateID (FIPS State Code), and categoryName.
-	 * Saves raw and processed data to CSV if the saveToCSVs flag is TRUE
 	 *
 	 * @param string $year
 	 * @param string $stateID
 	 * @param string $categoryName
-	 * @param boolean $saveToCSVs
-	 *
 	 * @return array $processedDataArray
 	 */
-
-	public static function updateCountyData($year, $stateID, $categoryName, $saveToCSV){
+	public static function updateCountyData($year, $stateID, $categoryName){
 		if(static::hasAPIKey()){
 		    $map = static::getMap($categoryName);
 			$fields = $map::getAllCodes();
 			$rawData = static::$grabber -> grabACSData($year, $stateID, $fields);
 			$processedDataArray = static::combineCategories($rawData, $map);
-
-			if($saveToCSV){
-				$rawFileName = date('Y-m-d').'_raw_county_'.$categoryName.'_data_'.$stateID.'_'.$year.'-00-00.csv';
-				$processedFileName = date('Y-m-d').'_processed_county_'.$categoryName.'_'.$stateID.'_'.$year.'-00-00.csv';
-				static::writeRawCSV($rawData, $rawFileName, $map);
-				static::writeProcessedCSV($processedDataArray, $processedFileName);
-			}
-
 			return $processedDataArray;
 		}
 	}

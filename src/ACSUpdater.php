@@ -62,8 +62,26 @@ class ACSUpdater
 
 
     /**
-     * Updates county data from the ACS,
-     * for a given year, stateID (FIPS State Code), and categoryName.
+     * Retrieves raw county data from the ACS
+     *
+     * @param string $year
+     * @param string $stateID
+     * @param string $categoryName
+     * @return array $processedDataArray
+     * @throws Exception
+     */
+    public static function getRawCountyData($year, $stateID, $categoryName)
+    {
+        if (static::hasAPIKey()) {
+            $map = static::getMap($categoryName);
+            $fields = $map::getAllCodes();
+            return static::$grabber->grabACSData($year, $stateID, $fields);
+        }
+        throw new Exception('API key not set', 500);
+    }
+
+    /**
+     * Returns county data from the ACS formatted into groups and readable headings
      *
      * @param string $year
      * @param string $stateID
@@ -73,15 +91,12 @@ class ACSUpdater
      */
     public static function getCountyData($year, $stateID, $categoryName)
     {
-        if (static::hasAPIKey()) {
-            $map = static::getMap($categoryName);
-            $fields = $map::getAllCodes();
-            $rawData = static::$grabber->grabACSData($year, $stateID, $fields);
-            $processedDataArray = static::combineCategories($rawData, $map);
-            return $processedDataArray;
-        }
-        throw new Exception('API key not set', 500);
+        $rawData = static::getRawCountyData($year, $stateID, $categoryName);
+        $map = static::getMap($categoryName);
+        return static::combineCategories($rawData, $map);
     }
+
+
 
     /**
      * Returns a map object for the specified category

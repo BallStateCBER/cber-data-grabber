@@ -72,24 +72,7 @@ class ACSUpdater{
 
 	public static function updateCountyData($year, $stateID, $categoryName, $saveToCSV){
 		if(static::hasAPIKey()){
-			switch ($categoryName) {
-				case static::$POPULATION_AGE:
-					$map = new ACSPopulationAgeTableMap();
-					break;
-				case static::$HOUSEHOLD_INCOME;
-					$map = new ACSHouseholdIncomeTableMap();
-					break;
-				case static::$ETHNIC_MAKEUP;
-					$map = new ACSEthnicMakeupTableMap();
-					break;
-				case static::$EDUCATIONAL_ATTAINMENT;
-					$map = new ACSEducationalAttainmentMap();
-					break;
-				case static::$INEQUALITY_INDEX;
-					$map = new ACSGINIMap();
-					break;
-			}
-
+		    $map = static::getMap($categoryName);
 			$fields = $map::getAllCodes();
 			$rawData = static::$grabber -> grabACSData($year, $stateID, $fields);
 			$processedDataArray = static::combineCategories($rawData, $map);
@@ -104,6 +87,31 @@ class ACSUpdater{
 			return $processedDataArray;
 		}
 	}
+
+    /**
+     * Returns a map object for the specified category
+     *
+     * @param string $categoryName
+     * @return ACSPopulationAgeTableMap|ACSHouseholdIncomeTableMap|ACSEthnicMakeupTableMap|ACSEducationalAttainmentMap|ACSGINIMap
+     * @throws Exception
+     */
+    private static function getMap($categoryName)
+    {
+        switch ($categoryName) {
+            case static::$POPULATION_AGE:
+                return new ACSPopulationAgeTableMap();
+            case static::$HOUSEHOLD_INCOME;
+                return new ACSHouseholdIncomeTableMap();
+            case static::$ETHNIC_MAKEUP;
+                return new ACSEthnicMakeupTableMap();
+            case static::$EDUCATIONAL_ATTAINMENT;
+                return new ACSEducationalAttainmentMap();
+            case static::$INEQUALITY_INDEX;
+                return new ACSGINIMap();
+        }
+
+        throw new \Exception('Unrecognized category name: '.$categoryName, 500);
+    }
 
 
 	/**

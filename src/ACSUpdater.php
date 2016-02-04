@@ -120,10 +120,10 @@ class ACSUpdater
      */
     private static function combineCategories(array $rawData, ACSGenericTableMap $map)
     {
-        $combinedData = array();
+        $combinedData = [];
         $groups = $map::getAllGroupKeys();
         foreach ($rawData as $fips => $row) {
-            $newRow = array();
+            $newRow = [];
             foreach ($groups as $group){
                 $columnsInGroup = $map::getColumnCodes($group);
                 $newRow[$group] = 0;
@@ -155,18 +155,18 @@ class ACSUpdater
 
         foreach ($data as $fipsID => $row) {
             if ($startOfFile) {
-                $firstRow = array("");
+                $firstRow = [""];
                 foreach (array_keys($row) as $code) {
                     array_push($firstRow, $map::getTextName($code));
                 }
-                $secondRow = array_merge(array("FIPS Code"),array_keys($row));
+                $secondRow = array_merge(["FIPS Code"], array_keys($row));
 
                 fputcsv($fp, $firstRow);
                 fputcsv($fp, $secondRow);
 
                 $startOfFile = FALSE;
             }
-            $modifiedRow = array_merge(array($fipsID),$row);
+            $modifiedRow = array_merge([$fipsID], $row);
             fputcsv($fp, $modifiedRow);
         }
         fclose($fp);
@@ -187,11 +187,11 @@ class ACSUpdater
 
         foreach ($processedData as $fipsID => $row) {
             if ($startOfFile) {
-                $firstRow = array_merge(array("FIPS Code"),array_keys($row));
+                $firstRow = array_merge(["FIPS Code"], array_keys($row));
                 fputcsv($fp, $firstRow);
                 $startOfFile = FALSE;
             }
-            $modifiedRow = array_merge(array($fipsID),$row);
+            $modifiedRow = array_merge([$fipsID], $row);
             fputcsv($fp, $modifiedRow);
         }
         fclose($fp);

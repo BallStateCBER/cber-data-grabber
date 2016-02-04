@@ -6,6 +6,8 @@ A set of classes used by the [Ball State University](http://bsu.edu) [Center for
 ACS Updater (US Census Bureau)
 ------------------------------
 
+Make sure you first have a [US Census Bureau API Key](http://api.census.gov/data/key_signup.html).
+
 Getting processed data and saving it to a CSV file:
 
     ACSUpdater::setAPIKey('api key goes here');

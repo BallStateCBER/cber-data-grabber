@@ -28,6 +28,7 @@ class ACSCountyDataGrabber{
      * @param string $stateID
      * @param string[] $fields
      * @return string[] $data
+     * @throws Exception
      */
     public function grabACSData($year, $stateID, array $fields){
 
@@ -38,7 +39,11 @@ class ACSCountyDataGrabber{
         $queryURL .= '&in=state:' . $stateID;
         $queryURL .= '&key=' . $this->APIKEY;
 
-        $jsondata = file_get_contents($queryURL);
+        $jsondata = @file_get_contents($queryURL);
+        if ($jsondata === false) {
+            throw new \Exception('No response from api.census.gov');
+        }
+
         $this -> data = json_decode($jsondata);
         $this->checkForJsonError();
 

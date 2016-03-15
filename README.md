@@ -3,7 +3,7 @@ CBER Data Grabber
 
 A set of classes used by the [Ball State University](http://bsu.edu) [Center for Business and Economic Research](http://cberdata.org) [County Profiles](http://profiles.cberdata.org) website for pulling data from US federal data APIs.
 
-ACS Updater (US Census Bureau)
+ACS Updater (American Community Survey, US Census Bureau)
 ------------------------------
 
 Make sure you first have a [US Census Bureau API Key](http://api.census.gov/data/key_signup.html).

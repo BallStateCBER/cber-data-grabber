@@ -28,7 +28,7 @@ class ACSCountyDataGrabber{
      * @param string $stateID
      * @param string[] $fields
      * @return string[] $data
-     * @throws Exception
+     * @throws \Exception
      */
     public function grabACSData($year, $stateID, array $fields){
 

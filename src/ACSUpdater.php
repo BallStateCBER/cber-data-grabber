@@ -75,7 +75,26 @@ class ACSUpdater
         if (static::hasAPIKey()) {
             $map = static::getMap($categoryName);
             $fields = $map::getAllCodes();
-            return static::$grabber->grabACSData($year, $stateID, $fields);
+            return static::$grabber->grabACSData($year, $stateID, $fields, 'counties');
+        }
+        throw new Exception('API key not set', 500);
+    }
+
+    /**
+     * Retrieves raw state-level data from the ACS
+     *
+     * @param string $year
+     * @param string $stateID
+     * @param string $categoryName
+     * @return array $processedDataArray
+     * @throws Exception
+     */
+    public static function getRawStateData($year, $stateID, $categoryName)
+    {
+        if (static::hasAPIKey()) {
+            $map = static::getMap($categoryName);
+            $fields = $map::getAllCodes();
+            return static::$grabber->grabACSData($year, $stateID, $fields, 'state');
         }
         throw new Exception('API key not set', 500);
     }
@@ -92,6 +111,22 @@ class ACSUpdater
     public static function getCountyData($year, $stateID, $categoryName)
     {
         $rawData = static::getRawCountyData($year, $stateID, $categoryName);
+        $map = static::getMap($categoryName);
+        return static::combineCategories($rawData, $map);
+    }
+
+    /**
+     * Returns state-level data from the ACS formatted into groups and readable headings
+     *
+     * @param string $year
+     * @param string $stateID
+     * @param string $categoryName
+     * @return array $processedDataArray
+     * @throws Exception
+     */
+    public static function getStateData($year, $stateID, $categoryName)
+    {
+        $rawData = static::getRawStateData($year, $stateID, $categoryName);
         $map = static::getMap($categoryName);
         return static::combineCategories($rawData, $map);
     }

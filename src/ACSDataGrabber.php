@@ -27,17 +27,26 @@ class ACSCountyDataGrabber{
      * @param string $year
      * @param string $stateID
      * @param string[] $fields
+     * @param string $geography Either 'counties' or 'state'
      * @return string[] $data
      * @throws \Exception
      */
-    public function grabACSData($year, $stateID, array $fields){
+    public function grabACSData($year, $stateID, array $fields, $geography = 'counties')
+    {
 
         $queryURL = 'http://api.census.gov/data/';
         $queryURL .= $year;
-        $queryURL .= '/acs5?get=' . implode(',',$fields);
-        $queryURL .= '&for=county:*';
-        $queryURL .= '&in=state:' . $stateID;
+        $queryURL .= '/acs5?get=' . implode(',', $fields);
         $queryURL .= '&key=' . $this->APIKEY;
+
+        if ($geography == 'counties') {
+            $queryURL .= '&for=county:*';
+            $queryURL .= '&in=state:' . $stateID;
+        } elseif ($geography == 'state') {
+            $queryURL .= '&for=state:' . $stateID;
+        } else {
+            throw new \Exception('Unrecognized geography type "' . $geography . '"');
+        }
 
         $jsondata = @file_get_contents($queryURL);
         if ($jsondata === false) {
@@ -47,7 +56,7 @@ class ACSCountyDataGrabber{
         $this -> data = json_decode($jsondata);
         $this->checkForJsonError();
 
-        ACSCountyDataGrabber::formatRawData();
+        ACSCountyDataGrabber::formatRawData($geography);
         return $this -> data;
     }
 
@@ -74,8 +83,11 @@ class ACSCountyDataGrabber{
     /**
      * Processes the raw array to contain the correct index names.
      * Removes unneeded data
+     *
+     * @param string $geography Either 'counties' or 'state'
+     * @throws \Exception
      */
-    private function formatRawData(){
+    private function formatRawData($geography = 'counties'){
         $headers = array_shift($this -> data);
         $stateIndex = array_search("state", $this -> data);
         $countyIndex = array_search("county", $this -> data);
@@ -89,7 +101,13 @@ class ACSCountyDataGrabber{
             }
 
             #index rows by FIPS code, and add a FIPS column
-            $fipsCode = $entry['state'] . $entry['county'];
+            if ($geography == 'counties') {
+                $fipsCode = $entry['state'] . $entry['county'];
+            } elseif ($geography == 'state') {
+                $fipsCode = $entry['state'] . '000';
+            } else {
+                throw new \Exception('Unrecognized geography type "' . $geography . '"');
+            }
             unset($entry['state']);
             unset($entry['county']);
             $entry['FIPS'] = $fipsCode;

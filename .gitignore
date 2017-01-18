@@ -34,3 +34,6 @@ local.properties
 # Composer
 composer.lock
 /vendor/*
+
+# NPM
+/node_modules/*

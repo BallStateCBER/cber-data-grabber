@@ -7,12 +7,13 @@ namespace CBERDataGrabber;
  * @author Brandon Patterson
  * @version 0.2
  */
-class ACSCountyDataGrabber{
-
+class ACSCountyDataGrabber
+{
     protected $APIKEY = '';
-    private $data = array();
+    private $data = [];
 
-    function __construct($key){
+    public function __construct($key)
+    {
         $this->APIKEY = $key;
     }
 
@@ -53,13 +54,20 @@ class ACSCountyDataGrabber{
             throw new \Exception('No response from api.census.gov');
         }
 
-        $this -> data = json_decode($jsondata);
+        $this->data = json_decode($jsondata);
         $this->checkForJsonError();
 
         ACSCountyDataGrabber::formatRawData($geography);
-        return $this -> data;
+
+        return $this->data;
     }
 
+    /**
+     * Throws an exception if the previous call to json_decode() resulted in an error
+     *
+     * @return void
+     * @throws \Exception
+     */
     private function checkForJsonError()
     {
         switch (json_last_error()) {
@@ -85,22 +93,23 @@ class ACSCountyDataGrabber{
      * Removes unneeded data
      *
      * @param string $geography Either 'counties' or 'state'
+     * @return void
      * @throws \Exception
      */
-    private function formatRawData($geography = 'counties'){
-        $headers = array_shift($this -> data);
-        $stateIndex = array_search("state", $this -> data);
-        $countyIndex = array_search("county", $this -> data);
+    private function formatRawData($geography = 'counties')
+    {
+        $headers = array_shift($this->data);
+        $stateIndex = array_search('state', $this->data);
+        $countyIndex = array_search('county', $this->data);
 
-        #index columns by first row
-        foreach($this -> data as $row => $entry){
-            for($i = count($headers)-1; $i>=0; $i--){
-
+        // Index columns by first row
+        foreach ($this->data as $row => $entry) {
+            for ($i = count($headers)-1; $i >= 0; $i--) {
                 $entry[$headers[$i]] = $entry[$i];
                 unset($entry[$i]);
             }
 
-            #index rows by FIPS code, and add a FIPS column
+            // Index rows by FIPS code, and add a FIPS column
             if ($geography == 'counties') {
                 $fipsCode = $entry['state'] . $entry['county'];
             } elseif ($geography == 'state') {
@@ -111,8 +120,8 @@ class ACSCountyDataGrabber{
             unset($entry['state']);
             unset($entry['county']);
             $entry['FIPS'] = $fipsCode;
-            $this -> data[$fipsCode] = $entry;
-            unset($this -> data[$row]);
+            $this->data[$fipsCode] = $entry;
+            unset($this->data[$row]);
         }
     }
 }

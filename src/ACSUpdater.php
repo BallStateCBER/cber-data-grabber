@@ -145,17 +145,17 @@ class ACSUpdater
         switch ($categoryName) {
             case static::$POPULATION_AGE:
                 return new ACSPopulationAgeTableMap();
-            case static::$HOUSEHOLD_INCOME;
+            case static::$HOUSEHOLD_INCOME:
                 return new ACSHouseholdIncomeTableMap();
-            case static::$ETHNIC_MAKEUP;
+            case static::$ETHNIC_MAKEUP:
                 return new ACSEthnicMakeupTableMap();
-            case static::$EDUCATIONAL_ATTAINMENT;
+            case static::$EDUCATIONAL_ATTAINMENT:
                 return new ACSEducationalAttainmentMap();
-            case static::$INEQUALITY_INDEX;
+            case static::$INEQUALITY_INDEX:
                 return new ACSGINIMap();
         }
 
-        throw new \Exception('Unrecognized category name: '.$categoryName, 500);
+        throw new \Exception('Unrecognized category name: ' . $categoryName, 500);
     }
 
 
@@ -174,7 +174,7 @@ class ACSUpdater
         $groups = $map::getAllGroupKeys();
         foreach ($rawData as $fips => $row) {
             $newRow = [];
-            foreach ($groups as $group){
+            foreach ($groups as $group) {
                 $columnsInGroup = $map::getColumnCodes($group);
                 $newRow[$group] = 0;
                 foreach ($columnsInGroup as $col) {
@@ -201,7 +201,7 @@ class ACSUpdater
     private static function writeRawCSV(array $data, $fileName, ACSGenericTableMap $map)
     {
         $fp = fopen($fileName, 'w');
-        $startOfFile = TRUE;
+        $startOfFile = true;
 
         foreach ($data as $fipsID => $row) {
             if ($startOfFile) {
@@ -214,7 +214,7 @@ class ACSUpdater
                 fputcsv($fp, $firstRow);
                 fputcsv($fp, $secondRow);
 
-                $startOfFile = FALSE;
+                $startOfFile = false;
             }
             $modifiedRow = array_merge([$fipsID], $row);
             fputcsv($fp, $modifiedRow);
@@ -233,13 +233,13 @@ class ACSUpdater
     private static function writeProcessedCSV(array $processedData, $fileName)
     {
         $fp = fopen($fileName, 'w');
-        $startOfFile = TRUE;
+        $startOfFile = true;
 
         foreach ($processedData as $fipsID => $row) {
             if ($startOfFile) {
                 $firstRow = array_merge(["FIPS Code"], array_keys($row));
                 fputcsv($fp, $firstRow);
-                $startOfFile = FALSE;
+                $startOfFile = false;
             }
             $modifiedRow = array_merge([$fipsID], $row);
             fputcsv($fp, $modifiedRow);

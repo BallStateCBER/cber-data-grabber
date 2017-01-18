@@ -40,7 +40,7 @@ class BEACountyDataGrabber{
 		$fipsStr = $this::getFipsString($stateID);
 
 		foreach($lineCodes as $code){
-			$queryURL = 'http://bea.gov/api/data/';
+			$queryURL = 'https://bea.gov/api/data/';
 			$queryURL .= '?UserID='.$this->APIKEY;
 			$queryURL .= '&method=GetData';
 			$queryURL .= '&datasetname='.$dataSetName;

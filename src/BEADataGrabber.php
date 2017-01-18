@@ -53,12 +53,18 @@ class BEACountyDataGrabber
             $jsondata = file_get_contents($queryURL);
             $rawData = json_decode($jsondata);
 
-             BEACountyDataGrabber::processRawData($rawData, $code);
+            BEACountyDataGrabber::processRawData($rawData, $code);
         }
 
         return $this->data;
     }
 
+    /**
+     * Returns a comma-delimited string
+     *
+     * @param string $stateID State ID
+     * @return string
+     */
     private function getFipsString($stateID)
     {
         return implode(',', FipsCodeGenerator::getFipsList($stateID));
@@ -67,6 +73,10 @@ class BEACountyDataGrabber
     /**
      * Processes a single API query result into a useful format, and adds it to $this->$data
      * Removes unneeded details
+     *
+     * @param \stdClass $rawData Data returned from an API call
+     * @param string[] $lineCode BEA Line Codes
+     * @return void
      */
     private function processRawData($rawData, $lineCode)
     {

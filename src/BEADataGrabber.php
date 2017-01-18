@@ -50,13 +50,13 @@ class BEACountyDataGrabber
             $queryURL .= '&LineCode='.$code;
             $queryURL .= '&Year='.$year;
             $queryURL .= '&GeoFips='.$fipsStr;
-             $jsondata = file_get_contents($queryURL);
-             $rawData = json_decode($jsondata);
+            $jsondata = file_get_contents($queryURL);
+            $rawData = json_decode($jsondata);
 
              BEACountyDataGrabber::processRawData($rawData, $code);
         }
 
-         return $this->data;
+        return $this->data;
     }
 
     private function getFipsString($stateID)

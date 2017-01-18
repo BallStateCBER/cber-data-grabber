@@ -80,7 +80,7 @@ class BEACountyDataGrabber
             }
         } else {
             $row = $tempData->GeoFips;
-            $this->data[$row][$col] = $data->DataValue;
+            $this->data[$row][$col] = $tempData->DataValue;
         }
     }
 }

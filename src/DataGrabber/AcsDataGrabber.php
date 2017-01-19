@@ -1,5 +1,5 @@
 <?php
-namespace CBERDataGrabber;
+namespace CBERDataGrabber\DataGrabber;
 
 /**
  * A utility for querying the American Comunity Survey API
@@ -7,7 +7,7 @@ namespace CBERDataGrabber;
  * @author Brandon Patterson
  * @version 0.2
  */
-class ACSCountyDataGrabber
+class AcsDataGrabber
 {
     protected $APIKEY = '';
     private $data = [];
@@ -57,7 +57,7 @@ class ACSCountyDataGrabber
         $this->data = json_decode($jsondata);
         $this->checkForJsonError();
 
-        ACSCountyDataGrabber::formatRawData($geography);
+        AcsDataGrabber::formatRawData($geography);
 
         return $this->data;
     }

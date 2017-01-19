@@ -1,8 +1,13 @@
 <?php
-namespace CBERDataGrabber;
+namespace CBERDataGrabber\Updater;
 
-include 'ACSDataGrabber.php';
-include 'ACSTableMaps.php';
+use CBERDataGrabber\DataGrabber\AcsDataGrabber;
+use CBERDataGrabber\TableMaps\ACS\PopulationAgeTableMap;
+use CBERDataGrabber\TableMaps\ACS\HouseholdIncomeTableMap;
+use CBERDataGrabber\TableMaps\ACS\EthnicMakeupTableMap;
+use CBERDataGrabber\TableMaps\ACS\EducationalAttainmentTableMap;
+use CBERDataGrabber\TableMaps\ACS\GiniTableMap;
+use CBERDataGrabber\TableMaps\ACS\TableMap;
 
 /**
  * A class that controls the collection of data from the American Community Survey
@@ -13,9 +18,8 @@ include 'ACSTableMaps.php';
  * @author Brandon Patterson
  * @version 0.3
  */
-class ACSUpdater
+class AcsUpdater
 {
-
     private static $grabber;
     private static $APIKEY = '';
     public static $POPULATION_AGE = "population_age";
@@ -40,7 +44,7 @@ class ACSUpdater
     public static function setAPIKey($key)
     {
         static::$APIKEY = $key;
-        static::$grabber = new ACSCountyDataGrabber($key);
+        static::$grabber = new AcsDataGrabber($key);
     }
 
 
@@ -137,22 +141,22 @@ class ACSUpdater
      * Returns a map object for the specified category
      *
      * @param string $categoryName
-     * @return ACSPopulationAgeTableMap|ACSHouseholdIncomeTableMap|ACSEthnicMakeupTableMap|ACSEducationalAttainmentMap|ACSGINIMap
-     * @throws Exception
+     * @return PopulationAgeTableMap|HouseholdIncomeTableMap|EthnicMakeupTableMap|EducationalAttainmentTableMap|GiniTableMap
+     * @throws \Exception
      */
     private static function getMap($categoryName)
     {
         switch ($categoryName) {
             case static::$POPULATION_AGE:
-                return new ACSPopulationAgeTableMap();
+                return new PopulationAgeTableMap();
             case static::$HOUSEHOLD_INCOME:
-                return new ACSHouseholdIncomeTableMap();
+                return new HouseholdIncomeTableMap();
             case static::$ETHNIC_MAKEUP:
-                return new ACSEthnicMakeupTableMap();
+                return new EthnicMakeupTableMap();
             case static::$EDUCATIONAL_ATTAINMENT:
-                return new ACSEducationalAttainmentMap();
+                return new EducationalAttainmentTableMap();
             case static::$INEQUALITY_INDEX:
-                return new ACSGINIMap();
+                return new GiniTableMap();
         }
 
         throw new \Exception('Unrecognized category name: ' . $categoryName, 500);
@@ -165,10 +169,10 @@ class ACSUpdater
      * Returns the formatted data.
      *
      * @param array $rawData
-     * @param ACSGenericTableMap $map
+     * @param TableMap $map
      * @return array $combinedData
      */
-    private static function combineCategories(array $rawData, ACSGenericTableMap $map)
+    private static function combineCategories(array $rawData, TableMap $map)
     {
         $combinedData = [];
         $groups = $map::getAllGroupKeys();
@@ -196,9 +200,9 @@ class ACSUpdater
      *
      * @param array $data
      * @param string $fileName
-     * @param ACSGenericTableMap $map
+     * @param TableMap $map
      */
-    private static function writeRawCSV(array $data, $fileName, ACSGenericTableMap $map)
+    private static function writeRawCSV(array $data, $fileName, TableMap $map)
     {
         $fp = fopen($fileName, 'w');
         $startOfFile = true;

@@ -1,5 +1,5 @@
 <?php
-namespace CBERDataGrabber;
+namespace CBERDataGrabber\TableMaps\ACS;
 
 /**
  * A utility that provides a set of default functions for interacting with a Map of ACS table codes.
@@ -8,7 +8,7 @@ namespace CBERDataGrabber;
  * @version 0.1
  */
 
-class ACSGenericTableMap
+class TableMap
 {
     /*
      * $MAP is an array of ACSCode -> Plain English Column Name, defined in each specific ACS Map

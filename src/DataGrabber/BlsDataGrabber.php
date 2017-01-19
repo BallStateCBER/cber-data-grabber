@@ -1,7 +1,7 @@
 <?php
-namespace CBERDataGrabber;
+namespace CBERDataGrabber\DataGrabber;
 
-include 'FipsCodeGenerator.php';
+use CBERDataGrabber\FipsCodeGenerator;
 
 /**
  * A utility for querying the Bureau of Labor Statistics API
@@ -14,7 +14,7 @@ include 'FipsCodeGenerator.php';
  * @author Brandon Patterson
  * @version 0.1
  */
-class BLSCountyDataGrabber
+class BlsDataGrabber
 {
     static private $data = [];
     static private $tablePrefixes = [

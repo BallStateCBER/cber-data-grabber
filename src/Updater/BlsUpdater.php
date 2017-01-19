@@ -1,7 +1,7 @@
 <?php
-namespace CBERDataGrabber;
+namespace CBERDataGrabber\Updater;
 
-include 'BLSDataGrabber.php';
+use CBERDataGrabber\DataGrabber\BlsDataGrabber;
 
 /**
  * A class that controls the collection of data from the Bureau of Labor Statistics
@@ -12,7 +12,7 @@ include 'BLSDataGrabber.php';
  * @author Brandon Patterson
  * @version 0.1
  */
-class BLSUpdater
+class BlsUpdater
 {
 
     /**
@@ -41,7 +41,7 @@ class BLSUpdater
      */
     public static function updateCountyUnemployment($stateID, $endYear, $saveToCSV)
     {
-        $data = BLSCountyDataGrabber::grabUnadjUnemploymentData($stateID, $endYear);
+        $data = BlsDataGrabber::grabUnadjUnemploymentData($stateID, $endYear);
 
         if ($saveToCSV) {
             $processedFileName = date('Y-m-d') . '_processed_county_unadj_unemployment_' . $stateID . '_' . $endYear .

@@ -1,8 +1,14 @@
 <?php
-namespace CBERDataGrabber;
+namespace CBERDataGrabber\Updater;
 
-include 'BEADataGrabber.php';
-include 'BEATableMaps.php';
+use CBERDataGrabber\DataGrabber\BeaDataGrabber;
+use CBERDataGrabber\TableMaps\BEA\EmploymentTableMap;
+use CBERDataGrabber\TableMaps\BEA\SocialOrgIncomeTableMap;
+use CBERDataGrabber\TableMaps\BEA\TransferPaymentBreakdownTableMap;
+use CBERDataGrabber\TableMaps\BEA\TransferPaymentProportionTableMap;
+use CBERDataGrabber\TableMaps\BEA\WageTableMap;
+use CBERDataGrabber\TableMaps\BEA\WorkersCompTableMap;
+use CBERDataGrabber\TableMaps\BEA\TableMap;
 
 /**
  * A class that controls the collection of data from the BEA
@@ -13,7 +19,7 @@ include 'BEATableMaps.php';
  * @author Brandon Patterson
  * @version 0.3
  */
-class BEAUpdater
+class BeaUpdater
 {
     private static $grabber;
     private static $APIKEY = '';
@@ -43,7 +49,7 @@ class BEAUpdater
     public static function setAPIKey($key)
     {
         static::$APIKEY = $key;
-        static::$grabber = new BEACountyDataGrabber($key);
+        static::$grabber = new BeaDataGrabber($key);
     }
 
     /**
@@ -81,22 +87,22 @@ class BEAUpdater
         if (static::hasAPIKey()) {
             switch ($categoryName) {
                 case static::$WAGES:
-                    $map = new BEAWageMap();
+                    $map = new WageTableMap();
                     break;
                 case static::$EMPLOYMENT:
-                    $map = new BEAEmploymentMap();
+                    $map = new EmploymentTableMap();
                     break;
                 case static::$TRANSFER_PAYMENT_BREAKDOWN:
-                    $map = new BEATransferPaymentBreakdownMap();
+                    $map = new TransferPaymentBreakdownTableMap();
                     break;
                 case static::$TRANSFER_PAYMENT_PROPORTION:
-                    $map = new BEATransferPaymentProportionMap();
+                    $map = new TransferPaymentProportionTableMap();
                     break;
                 case static::$WORKERS_COMP:
-                    $map = new BEAWorkersCompMap();
+                    $map = new WorkersCompTableMap();
                     break;
                 case static::$SOCIAL_ORG_INCOME:
-                    $map = new BEASocialOrgIncomeMap();
+                    $map = new SocialOrgIncomeTableMap();
                     break;
             }
 
@@ -126,10 +132,10 @@ class BEAUpdater
      * Returns the formatted data.
      *
      * @param string[] $rawData
-     * @param BEAGenericTableMap $map
+     * @param TableMap $map
      * @return int[] $combinedData
      */
-    private static function combineCategories(array $rawData, BEAGenericTableMap $map)
+    private static function combineCategories(array $rawData, TableMap $map)
     {
         $combinedData = [];
         $groups = $map::getAllGroupKeys();
@@ -158,10 +164,10 @@ class BEAUpdater
      *
      * @param string[] $data
      * @param string $fileName
-     * @param BEAGenericTableMap $map
+     * @param TableMap $map
      * @return void
      */
-    private static function writeRawCSV(array $data, $fileName, BEAGenericTableMap $map)
+    private static function writeRawCSV(array $data, $fileName, TableMap $map)
     {
         $fp = fopen($fileName, 'w');
         $startOfFile = true;

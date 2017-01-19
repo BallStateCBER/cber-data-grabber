@@ -1,7 +1,7 @@
 <?php
-namespace CBERDataGrabber;
+namespace CBERDataGrabber\DataGrabber;
 
-include 'FipsCodeGenerator.php';
+use CBERDataGrabber\FipsCodeGenerator;
 
 /**
  * A utility for querying the BEA API
@@ -9,7 +9,7 @@ include 'FipsCodeGenerator.php';
  * @author Brandon Patterson
  * @version 0.2
  */
-class BEACountyDataGrabber
+class BeaDataGrabber
 {
     protected $APIKEY = '';
     private $data = [];
@@ -53,7 +53,7 @@ class BEACountyDataGrabber
             $jsondata = file_get_contents($queryURL);
             $rawData = json_decode($jsondata);
 
-            BEACountyDataGrabber::processRawData($rawData, $code);
+            BeaDataGrabber::processRawData($rawData, $code);
         }
 
         return $this->data;

@@ -1,5 +1,5 @@
 <?php
-namespace CBERDataGrabber;
+namespace CBERDataGrabber\TableMaps\BEA;
 
 /**
  * A utility that provides a set of default functions for interacting with a Map of a BEA Table.
@@ -8,7 +8,7 @@ namespace CBERDataGrabber;
 * @version 0.1
 */
 
-class BEAGenericTableMap
+class TableMap
 {
     /*
      * $MAP is an array of BEA LineCode -> Plain English Column Name, defined in each specific ACS Map

@@ -23,11 +23,11 @@ class AcsUpdater
 {
     private static $grabber;
     private static $APIKEY = '';
-    public static $POPULATION_AGE = "population_age";
-    public static $HOUSEHOLD_INCOME = "household_income";
-    public static $ETHNIC_MAKEUP = "ethnic_makeup";
-    public static $EDUCATIONAL_ATTAINMENT = "educational_attainment";
-    public static $INEQUALITY_INDEX = "gini_index";
+    const POPULATION_AGE = "population_age";
+    const HOUSEHOLD_INCOME = "household_income";
+    const ETHNIC_MAKEUP = "ethnic_makeup";
+    const EDUCATIONAL_ATTAINMENT = "educational_attainment";
+    const INEQUALITY_INDEX = "gini_index";
 
     /**
      * @return boolean
@@ -58,11 +58,11 @@ class AcsUpdater
      */
     public static function updateAllCountyData($year, $stateID)
     {
-        $ignore = static::updateCountyData($year, $stateID, static::$POPULATION_AGE);
-        $ignore = static::updateCountyData($year, $stateID, static::$HOUSEHOLD_INCOME);
-        $ignore = static::updateCountyData($year, $stateID, static::$ETHNIC_MAKEUP);
-        $ignore = static::updateCountyData($year, $stateID, static::$EDUCATIONAL_ATTAINMENT);
-        $ignore = static::updateCountyData($year, $stateID, static::$INEQUALITY_INDEX);
+        $ignore = static::updateCountyData($year, $stateID, static::POPULATION_AGE);
+        $ignore = static::updateCountyData($year, $stateID, static::HOUSEHOLD_INCOME);
+        $ignore = static::updateCountyData($year, $stateID, static::ETHNIC_MAKEUP);
+        $ignore = static::updateCountyData($year, $stateID, static::EDUCATIONAL_ATTAINMENT);
+        $ignore = static::updateCountyData($year, $stateID, static::INEQUALITY_INDEX);
     }
 
 
@@ -148,15 +148,15 @@ class AcsUpdater
     private static function getMap($categoryName)
     {
         switch ($categoryName) {
-            case static::$POPULATION_AGE:
+            case static::POPULATION_AGE:
                 return new PopulationAgeTableMap();
-            case static::$HOUSEHOLD_INCOME:
+            case static::HOUSEHOLD_INCOME:
                 return new HouseholdIncomeTableMap();
-            case static::$ETHNIC_MAKEUP:
+            case static::ETHNIC_MAKEUP:
                 return new EthnicMakeupTableMap();
-            case static::$EDUCATIONAL_ATTAINMENT:
+            case static::EDUCATIONAL_ATTAINMENT:
                 return new EducationalAttainmentTableMap();
-            case static::$INEQUALITY_INDEX:
+            case static::INEQUALITY_INDEX:
                 return new GiniTableMap();
         }
 

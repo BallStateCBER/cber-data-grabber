@@ -8,6 +8,7 @@ use CBERDataGrabber\TableMaps\ACS\EthnicMakeupTableMap;
 use CBERDataGrabber\TableMaps\ACS\EducationalAttainmentTableMap;
 use CBERDataGrabber\TableMaps\ACS\GiniTableMap;
 use CBERDataGrabber\TableMaps\ACS\TableMap;
+use Exception;
 
 /**
  * A class that controls the collection of data from the American Community Survey
@@ -81,7 +82,7 @@ class AcsUpdater
             $fields = $map::getAllCodes();
             return static::$grabber->grabACSData($year, $stateID, $fields, 'counties');
         }
-        throw new Exception('API key not set', 500);
+        throw new \Exception('API key not set', 500);
     }
 
     /**
@@ -100,7 +101,7 @@ class AcsUpdater
             $fields = $map::getAllCodes();
             return static::$grabber->grabACSData($year, $stateID, $fields, 'state');
         }
-        throw new Exception('API key not set', 500);
+        throw new \Exception('API key not set', 500);
     }
 
     /**

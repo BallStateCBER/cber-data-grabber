@@ -87,7 +87,7 @@ class BlsDataGrabber
      */
     private static function queryAPI($tableList, $endYear)
     {
-        $url = 'http://api.bls.gov/publicAPI/v2/timeseries/data/';
+        $url = 'https://api.bls.gov/publicAPI/v2/timeseries/data/';
         $method = 'POST';
         $query = [
             'seriesid'  => $tableList,

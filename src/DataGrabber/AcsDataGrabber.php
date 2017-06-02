@@ -34,8 +34,7 @@ class AcsDataGrabber
      */
     public function grabACSData($year, $stateID, array $fields, $geography = 'counties')
     {
-
-        $queryURL = 'http://api.census.gov/data/';
+        $queryURL = 'https://api.census.gov/data/';
         $queryURL .= $year;
         $queryURL .= '/acs5?get=' . implode(',', $fields);
         $queryURL .= '&key=' . $this->APIKEY;

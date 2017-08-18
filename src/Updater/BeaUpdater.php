@@ -108,6 +108,8 @@ class BeaUpdater
             case static::$SOCIAL_ORG_INCOME:
                 $map = new SocialOrgIncomeTableMap();
                 break;
+            default:
+                throw new Exception("Unrecognized category name $categoryName");
         }
 
         $dataSetName = $map::getDataSet();

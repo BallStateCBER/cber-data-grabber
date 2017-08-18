@@ -81,8 +81,8 @@ class BlsDataGrabber
      * queries the past 10 years of data for each entry,
      * and returns the decoded query result as a (complex) generic php object
      *
-     * @param unknown $tableList
-     * @param unknown $endYear
+     * @param array $tableList
+     * @param string $endYear
      * @return object $results json_decoded API query result
      */
     private static function queryAPI($tableList, $endYear)

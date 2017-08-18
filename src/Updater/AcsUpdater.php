@@ -21,7 +21,9 @@ use Exception;
  */
 class AcsUpdater
 {
+    /** @var AcsDataGrabber $grabber */
     private static $grabber;
+
     private static $APIKEY = '';
     const POPULATION_AGE = "population_age";
     const HOUSEHOLD_INCOME = "household_income";

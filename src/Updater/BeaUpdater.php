@@ -81,49 +81,52 @@ class BeaUpdater
      * @param string $categoryName
      * @param boolean $saveToCSV
      * @return string[] $processedDataArray
+     * @throws \Exception
      */
     public static function updateCountyData($year, $stateID, $categoryName, $saveToCSV)
     {
-        if (static::hasAPIKey()) {
-            switch ($categoryName) {
-                case static::$WAGES:
-                    $map = new WageTableMap();
-                    break;
-                case static::$EMPLOYMENT:
-                    $map = new EmploymentTableMap();
-                    break;
-                case static::$TRANSFER_PAYMENT_BREAKDOWN:
-                    $map = new TransferPaymentBreakdownTableMap();
-                    break;
-                case static::$TRANSFER_PAYMENT_PROPORTION:
-                    $map = new TransferPaymentProportionTableMap();
-                    break;
-                case static::$WORKERS_COMP:
-                    $map = new WorkersCompTableMap();
-                    break;
-                case static::$SOCIAL_ORG_INCOME:
-                    $map = new SocialOrgIncomeTableMap();
-                    break;
-            }
-
-            $dataSetName = $map::getDataSet();
-            $tableName = $map::getTableName();
-            $lineCodes = $map::getAllLineCodes();
-
-            $rawData = static::$grabber->grabBEAData($year, $stateID, $dataSetName, $tableName, $lineCodes);
-            $processedDataArray = static::combineCategories($rawData, $map);
-
-            if ($saveToCSV) {
-                $rawFileName = date('Y-m-d') . '_raw_county_' . $categoryName . '_data_' . $stateID . '_' . $year .
-                    '-00-00.csv';
-                $processedFileName = date('Y-m-d') . '_processed_county_' . $categoryName . '_' . $stateID . '_' .
-                    $year . '-00-00.csv';
-                static::writeRawCSV($rawData, $rawFileName, $map);
-                static::writeProcessedCSV($processedDataArray, $processedFileName);
-            }
-
-            return $processedDataArray;
+        if (! static::hasAPIKey()) {
+            throw new \Exception('API key not set');
         }
+
+        switch ($categoryName) {
+            case static::$WAGES:
+                $map = new WageTableMap();
+                break;
+            case static::$EMPLOYMENT:
+                $map = new EmploymentTableMap();
+                break;
+            case static::$TRANSFER_PAYMENT_BREAKDOWN:
+                $map = new TransferPaymentBreakdownTableMap();
+                break;
+            case static::$TRANSFER_PAYMENT_PROPORTION:
+                $map = new TransferPaymentProportionTableMap();
+                break;
+            case static::$WORKERS_COMP:
+                $map = new WorkersCompTableMap();
+                break;
+            case static::$SOCIAL_ORG_INCOME:
+                $map = new SocialOrgIncomeTableMap();
+                break;
+        }
+
+        $dataSetName = $map::getDataSet();
+        $tableName = $map::getTableName();
+        $lineCodes = $map::getAllLineCodes();
+
+        $rawData = static::$grabber->grabBEAData($year, $stateID, $dataSetName, $tableName, $lineCodes);
+        $processedDataArray = static::combineCategories($rawData, $map);
+
+        if ($saveToCSV) {
+            $rawFileName = date('Y-m-d') . '_raw_county_' . $categoryName . '_data_' . $stateID . '_' . $year .
+                '-00-00.csv';
+            $processedFileName = date('Y-m-d') . '_processed_county_' . $categoryName . '_' . $stateID . '_' .
+                $year . '-00-00.csv';
+            static::writeRawCSV($rawData, $rawFileName, $map);
+            static::writeProcessedCSV($processedDataArray, $processedFileName);
+        }
+
+        return $processedDataArray;
     }
 
     /**

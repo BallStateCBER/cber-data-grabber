@@ -144,7 +144,6 @@ class BeaUpdater
         $groups = $map::getAllGroupKeys();
         foreach ($rawData as $fips => $row) {
             $newRow = [];
-            $countyTotal = 0;
             foreach ($groups as $group) {
                 $columnsInGroup = $map::getLineCodes($group);
                 $newRow[$group] = 0;

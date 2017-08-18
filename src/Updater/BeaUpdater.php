@@ -21,7 +21,9 @@ use CBERDataGrabber\TableMaps\BEA\TableMap;
  */
 class BeaUpdater
 {
+    /** @var BeaDataGrabber $grabber */
     private static $grabber;
+
     private static $APIKEY = '';
     public static $WAGES = 'wages';
     public static $EMPLOYMENT = 'employment';

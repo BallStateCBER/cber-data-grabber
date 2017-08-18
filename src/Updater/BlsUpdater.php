@@ -25,7 +25,7 @@ class BlsUpdater
      */
     public static function updateAllCountyData($stateID, $endYear)
     {
-        $ignore = static::updateCountyUnemployment($stateID, $endYear, true);
+        static::updateCountyUnemployment($stateID, $endYear, true);
     }
 
 

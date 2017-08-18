@@ -9,6 +9,7 @@ use CBERDataGrabber\TableMaps\BEA\TransferPaymentProportionTableMap;
 use CBERDataGrabber\TableMaps\BEA\WageTableMap;
 use CBERDataGrabber\TableMaps\BEA\WorkersCompTableMap;
 use CBERDataGrabber\TableMaps\BEA\TableMap;
+use Exception;
 
 /**
  * A class that controls the collection of data from the BEA

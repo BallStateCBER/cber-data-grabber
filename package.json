@@ -1,0 +1,27 @@
+{
+  "name": "cber-data-grabber",
+  "version": "1.0.0",
+  "description": "A set of classes used by the CBER County Profiles website for pulling data from US federal data APIs.",
+  "main": "gulpfile.js",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-phpcs": "^2.0.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BallStateCBER/cber-data-grabber.git"
+  },
+  "contributors": [
+    "Graham Watson",
+    "Brandon Patterson"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BallStateCBER/cber-data-grabber/issues"
+  },
+  "homepage": "https://github.com/BallStateCBER/cber-data-grabber#readme"
+}

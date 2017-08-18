@@ -40,11 +40,10 @@ class TableMap
     }
 
     /**
-     * returns an array containing all individual BEA Line Codes in the table whose English names contain the
+     * Returns an array containing all individual BEA Line Codes in the table whose English names contain the
      * specified searchString
      *
      * @param string $searchString
-     *
      * @return string[] codes
      */
     private static function search($searchString)
@@ -85,7 +84,7 @@ class TableMap
     }
 
     /**
-     * Returns the Table Name as a String
+     * Returns the table name
      *
      * @return string tableName
      */
@@ -95,7 +94,7 @@ class TableMap
     }
 
     /**
-     * Returns the Table Name as a String
+     * Returns the data set name
      *
      * @return string dataSetName
      */

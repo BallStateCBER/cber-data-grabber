@@ -75,7 +75,7 @@ class BeaDataGrabber
      * Removes unneeded details
      *
      * @param \stdClass $rawData Data returned from an API call
-     * @param string[] $lineCode BEA Line Codes
+     * @param string $lineCode BEA Line Codes
      * @return void
      */
     private function processRawData($rawData, $lineCode)

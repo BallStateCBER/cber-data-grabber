@@ -58,11 +58,11 @@ class AcsUpdater
      */
     public static function updateAllCountyData($year, $stateID)
     {
-        $ignore = static::updateCountyData($year, $stateID, static::POPULATION_AGE);
-        $ignore = static::updateCountyData($year, $stateID, static::HOUSEHOLD_INCOME);
-        $ignore = static::updateCountyData($year, $stateID, static::ETHNIC_MAKEUP);
-        $ignore = static::updateCountyData($year, $stateID, static::EDUCATIONAL_ATTAINMENT);
-        $ignore = static::updateCountyData($year, $stateID, static::INEQUALITY_INDEX);
+        static::updateCountyData($year, $stateID, static::POPULATION_AGE);
+        static::updateCountyData($year, $stateID, static::HOUSEHOLD_INCOME);
+        static::updateCountyData($year, $stateID, static::ETHNIC_MAKEUP);
+        static::updateCountyData($year, $stateID, static::EDUCATIONAL_ATTAINMENT);
+        static::updateCountyData($year, $stateID, static::INEQUALITY_INDEX);
     }
 
 

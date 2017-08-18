@@ -98,8 +98,6 @@ class AcsDataGrabber
     private function formatRawData($geography = 'counties')
     {
         $headers = array_shift($this->data);
-        $stateIndex = array_search('state', $this->data);
-        $countyIndex = array_search('county', $this->data);
 
         // Index columns by first row
         foreach ($this->data as $row => $entry) {

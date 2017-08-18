@@ -19,8 +19,8 @@ class BlsUpdater
      * Calls for the update of all (supported County Profile Data from the BLS,
      * for a given year and stateID (FIPS State Code).
      *
-     * @param string $stateID
-     * @param string $endYear
+     * @param string $stateID State ID
+     * @param string $endYear Last year for data set
      * @return void
      */
     public static function updateAllCountyData($stateID, $endYear)
@@ -30,13 +30,12 @@ class BlsUpdater
 
 
     /**
-     * requests a 10 year window of county unemployment data from the BLS,
-     * for a given stateID (FIPS State Code) and ending year.
-     * Saves  data to CSV if the saveToCSVs flag is TRUE
+     * Requests a 10 year window of county unemployment data from the BLS for a given stateID (FIPS State Code)
+     * and ending year. Saves data to CSV if the saveToCSVs flag is TRUE.
      *
-     * @param string $stateID
-     * @param string $endYear
-     * @param boolean $saveToCSV
+     * @param string $stateID State ID
+     * @param string $endYear Last year for data set
+     * @param boolean $saveToCSV Set to TRUE to save data to a CSV file
      * @return array
      */
     public static function updateCountyUnemployment($stateID, $endYear, $saveToCSV)
@@ -53,12 +52,12 @@ class BlsUpdater
     }
 
     /**
-     * Given an array of BLS data,
-     * writes the processed data to file for later use updating the Database.
+     * Given an array of BLS data, writes the processed data to file for later use updating the Database.
+     *
      * (Some naming convention has unnecessarily been kept to preserve similarity between different API updaters.)
      *
-     * @param array $processedData
-     * @param $fileName
+     * @param array $processedData Array of data
+     * @param string $fileName Filename
      * @return void
      */
     private static function writeProcessedCSV(array $processedData, $fileName)

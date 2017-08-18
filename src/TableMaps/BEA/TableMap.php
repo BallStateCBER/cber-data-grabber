@@ -25,7 +25,7 @@ class TableMap
     /**
      * Returns an array containing all of the BEA Line Codes in a requested group, named groupKey
      *
-     * @param string $groupKey
+     * @param string $groupKey Key for the class property array $GROUPS
      * @return string[] codes
      */
     public static function getLineCodes($groupKey)
@@ -43,7 +43,7 @@ class TableMap
      * Returns an array containing all individual BEA Line Codes in the table whose English names contain the
      * specified searchString
      *
-     * @param string $searchString
+     * @param string $searchString String to search for
      * @return string[] codes
      */
     private static function search($searchString)
@@ -106,7 +106,7 @@ class TableMap
     /**
      * Returns the English text name associated with a specific BEA Line Code in the MAP
      *
-     * @param string $code
+     * @param string $code Array key for class property array $MAP
      * @return string textName
      */
     public static function getTextName($code)

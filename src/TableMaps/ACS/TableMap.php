@@ -19,7 +19,7 @@ class TableMap
     /**
      * Returns an array containing all of the ACS Column Codes in a requested group, named groupKey
      *
-     * @param string $groupKey
+     * @param string $groupKey Key for the class property array $GROUPS
      * @return string[]
      */
     public static function getColumnCodes($groupKey)
@@ -37,7 +37,7 @@ class TableMap
      * Returns an array containing all individual ACS Column Codes in the table whose English names contain the
      * specified searchString
      *
-     * @param string $searchString
+     * @param string $searchString String to search for
      * @return string[]
      */
     private static function search($searchString)
@@ -78,7 +78,7 @@ class TableMap
     /**
      * Returns the English text name associated with a specific ACS Column Code in the MAP
      *
-     * @param string $code
+     * @param string $code Array key for class property array $MAP
      * @return string
      */
     public static function getTextName($code)

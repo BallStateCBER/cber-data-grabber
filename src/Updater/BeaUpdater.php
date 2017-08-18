@@ -83,7 +83,7 @@ class BeaUpdater
      * @param string $stateID
      * @param string $categoryName
      * @param boolean $saveToCSV
-     * @return int[] $processedDataArray
+     * @return int[]
      * @throws \Exception
      */
     public static function updateCountyData($year, $stateID, $categoryName, $saveToCSV)

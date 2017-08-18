@@ -48,24 +48,6 @@ class AcsUpdater
         static::$grabber = new AcsDataGrabber($key);
     }
 
-
-    /**
-     * Calls for the update of all County Profile Data from the ACS,
-     * for a given year and stateID (FIPS State Code).
-     *
-     * @param string $year
-     * @param string $stateID
-     */
-    public static function updateAllCountyData($year, $stateID)
-    {
-        static::updateCountyData($year, $stateID, static::POPULATION_AGE);
-        static::updateCountyData($year, $stateID, static::HOUSEHOLD_INCOME);
-        static::updateCountyData($year, $stateID, static::ETHNIC_MAKEUP);
-        static::updateCountyData($year, $stateID, static::EDUCATIONAL_ATTAINMENT);
-        static::updateCountyData($year, $stateID, static::INEQUALITY_INDEX);
-    }
-
-
     /**
      * Retrieves raw county data from the ACS
      *

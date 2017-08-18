@@ -30,10 +30,11 @@ class BlsDataGrabber
     /**
      * Given a State FIPS code and an ending year, returns the (unadjusted) county-level unemployment levels for the
      * previous 10 year period.
+     *
      * Seasonally adjusted data does not appear to be available at the county level.
      *
-     * @param string stateId
-     * @param string endYear
+     * @param string $stateId State ID
+     * @param string $endYear Last year for data set
      * @return string[] $data
      */
     public static function grabUnadjUnemploymentData($stateId, $endYear)

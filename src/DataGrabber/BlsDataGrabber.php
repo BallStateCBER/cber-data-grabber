@@ -44,7 +44,6 @@ class BlsDataGrabber
         static::$data = [];
 
         $codes = FipsCodeGenerator::getFipsList($stateId);
-        $index = 0;
         $tableList = [];
 
         foreach ($codes as $code) {

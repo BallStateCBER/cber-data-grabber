@@ -10,12 +10,17 @@ namespace CBERDataGrabber\TableMaps\BEA;
 
 class TableMap
 {
-    /*
-     * $MAP is an array of BEA LineCode -> Plain English Column Name, defined in each specific ACS Map
-     *
-     * $GROUPS is an array of GroupName => comma delimited list of column names in group,
-     * defined in each specific ACS Map
-     */
+    /** @var array $MAP Array of ACSCode -> Plain English Column Names */
+    protected static $MAP = [];
+
+    /** @var array $GROUPS Array of GroupName => comma delimited list of column names in group */
+    protected static $GROUPS = [];
+
+    /** @var string $TABLE Table name*/
+    protected static $TABLE;
+
+    /** @var string $DATASET Data set name*/
+    protected static $DATASET;
 
     /**
      * Returns an array containing all of the BEA Line Codes in a requested group, named groupKey

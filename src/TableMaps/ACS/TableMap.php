@@ -10,12 +10,11 @@ namespace CBERDataGrabber\TableMaps\ACS;
 
 class TableMap
 {
-    /*
-     * $MAP is an array of ACSCode -> Plain English Column Name, defined in each specific ACS Map
-     *
-     * $GROUPS is an array of GroupName => comma delimited list of column names in group,
-     * defined in each specific ACS Map
-     */
+    /** @var array $MAP Array of ACSCode -> Plain English Column Names */
+    protected static $MAP = [];
+
+    /** @var array $GROUPS Array of GroupName => comma delimited list of column names in group */
+    protected static $GROUPS = [];
 
     /**
      * Returns an array containing all of the ACS Column Codes in a requested group, named groupKey
